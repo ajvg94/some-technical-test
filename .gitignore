@@ -1,0 +1,23 @@
+# Dependencies
+*/node_modules
+node_modules
+
+# Compiled output
+**/dist
+*/dist
+/dist
+**/lib
+/tmp
+/out-tsc
+
+# Environment varibales
+# .env*
+# !.env*.example
+
+# Testing reports
+mochawesome-report
+.nyc_output
+coverage
+
+# vsCode
+.vscode/*
