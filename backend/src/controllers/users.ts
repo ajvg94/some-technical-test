@@ -5,6 +5,14 @@ import { validatorOptions } from '../validators/validatorOptions';
 import { HttpStatusCode } from '../types/error'
 import * as UserValidator from "../validators/users";
 
+
+/**
+ * Executes a search operation based on the provided search query data.
+ *
+ * @param {Request} req - The HTTP request object.
+ * @param {Response} res - The HTTP response object.
+ * @return {Promise<void>} - A Promise that returns the search operation results.
+ */
 export const search = async (req: Request, res: Response) => {
     try {
         const searchQueryData = req.body ;
@@ -16,6 +24,13 @@ export const search = async (req: Request, res: Response) => {
     }
 };
 
+/**
+ * Retrieves the top queries from the UserService and sends them as a response.
+ *
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @return {Promise<void>} A promise that returns the top queries.
+ */
 // @ts-ignore
 export const getTopQueries = async (req: Request, res: Response) => {
     try {
@@ -29,6 +44,13 @@ export const getTopQueries = async (req: Request, res: Response) => {
     }
 };
 
+/**
+ * Retrieves the favorites of a user.
+ *
+ * @param {Request} req - The request object containing the userTorreGgId.
+ * @param {Response} res - The response object to send the user favorites.
+ * @return {Promise<void>} - A promise that resolves when the user favorites.
+ */
 export const getUserFavorites = async (req: Request, res: Response) => {
     try {
         const userTorreGgId = req.body.userTorreGgId;
@@ -43,6 +65,13 @@ export const getUserFavorites = async (req: Request, res: Response) => {
     }
 };
 
+/**
+ * Adds an item to the user's favorites.
+ *
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @return {Promise<void>} A Promise that resolves when the favorite is added successfully.
+ */
 export const addToUserFavorites = async (req: Request, res: Response) => {
     try {
         const addToUserFavoritesData = req.body;
@@ -57,6 +86,14 @@ export const addToUserFavorites = async (req: Request, res: Response) => {
     }
 };
 
+
+/**
+ * Removes a favorite item from the user's favorites.
+ *
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @return {Promise<void>} A Promise that resolves when the favorite is removed successfully.
+ */
 export const removeFromUserFavorites = async (req: Request, res: Response) => {
     try {
         const removeFromUserFavoritesData = req.body;

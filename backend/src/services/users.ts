@@ -7,6 +7,12 @@ const SEARCH_URL = "https://torre.ai/api/entities/_search";
 
 export class UserService {
 
+  /**
+   * Executes a search query for a user.
+   *
+   * @param {SearchQueryData} searchQueryData - The data for the search query.
+   * @returns {Promise<{ status: any, data: any }>} - The status and data of the search result.
+   */
   static async searchUser(searchQueryData: SearchQueryData) {
     try{
       const { data, status } = await axios.post(SEARCH_URL, searchQueryData);
@@ -22,6 +28,12 @@ export class UserService {
     }
   }
 
+  /**
+   * Create a query in the QueryModel.
+   *
+   * @param {string} getQueryData - The data for the query.
+   * @return {Promise<void>} - A promise that resolves with no value.
+   */
   static async createQuery(getQueryData: string) {
     try{
       await QueryModel.create({ query: getQueryData, count: 1 });
@@ -30,6 +42,12 @@ export class UserService {
     }
   }
 
+  /**
+   * Retrieves a query from the database based on the provided getQueryData.
+   *
+   * @param {string} getQueryData - The data used to search for the query.
+   * @return {Query | undefined} The retrieved query if found, otherwise undefined.
+   */
   static async getQuery(getQueryData: string) {
     try{
       const foundQuery = await QueryModel.findOne({ where: { query: getQueryData } });
@@ -40,6 +58,12 @@ export class UserService {
     }
   }
 
+  /**
+   * Updates a query in the database.
+   *
+   * @param {string} getQueryData - The data used to find the query.
+   * @return {Promise<void>} - A promise that resolves with no value.
+   */
   static async updateQuery(getQueryData: string) {
     try{
       const foundQuery = await UserService.getQuery(getQueryData);
@@ -52,6 +76,11 @@ export class UserService {
     }
   }
 
+  /**
+   * Retrieves the top queries from the database.
+   *
+   * @return {Promise<Array<QueryModel>>} An array of the top queries.
+   */
   static async getTopQueries() {
     try{
       return await QueryModel.findAll({ order: [['count', 'DESC']], limit: 10 });
@@ -60,6 +89,12 @@ export class UserService {
     }
   }
 
+  /**
+   * Retrieves the favorites of a user with the given torreGgId.
+   *
+   * @param {string} userTorreGgId - The torreGgId of the user.
+   * @return {Array<string>} An array containing the torreGgIds of the user's favorites.
+   */
   static async getUserFavorites(userTorreGgId: string) {
     try{
       let favorites=  await UserFavoriteModel.findAll({ 
@@ -72,6 +107,12 @@ export class UserService {
     }
   }
 
+  /**
+   * Retrieves a user's favorite by their torreGgId.
+   *
+   * @param {UserFavoritesData} getUserFavoriteByGgIdData - The data used to find the user's favorite.
+   * @return {Query} The user's favorite.
+   */
   static async getUserFavoriteByGgId(getUserFavoriteByGgIdData: UserFavoritesData) {
     try{
       const foundFavorite = await UserFavoriteModel.findOne({ where: { ...getUserFavoriteByGgIdData } });
