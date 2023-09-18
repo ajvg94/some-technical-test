@@ -1,16 +1,22 @@
-export enum identityTypes {
+export enum IdentityTypes {
     person = 'person',
     organization = 'organization',
     all = 'all'
 }
 
-export interface searchQueryData {
+export interface SearchQueryData {
     query?: string;
     torreGgId?:	string
-    identityType?: identityTypes;
+    identityType?: IdentityTypes;
     limit?: number;
     meta?: boolean;
     excluding?: [string];
     excludedPeople?: [string];
     excludeContacts?:true;
+}
+
+export interface Query {
+    id: string;
+    query:	string
+    count: number;
 }

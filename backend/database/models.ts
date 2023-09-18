@@ -8,11 +8,6 @@ export const sequelize = new Sequelize({
 class QueryModel extends Model {}
 QueryModel.init(
   {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true
-    },
     query: {
       type: new DataTypes.STRING(128),
       allowNull: true,
@@ -24,31 +19,26 @@ QueryModel.init(
   },
   {
     sequelize,
-    modelName: 'User'
+    modelName: 'Query'
   }
 );
 
-class UserFavoritesModel extends Model {}
-QueryModel.init(
+class UserFavoriteModel extends Model {}
+UserFavoriteModel.init(
   {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true
+    ggId: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
-    query: {
-      type: new DataTypes.STRING(128),
-      allowNull: true,
-    },
-    count: {
-      type: DataTypes.INTEGER,
+    favoriteggId: {
+      type: DataTypes.STRING,
       allowNull: false
     }
   },
   {
     sequelize,
-    modelName: 'User'
+    modelName: 'UserFavorite'
   }
 );
 
-export { QueryModel }
+export { QueryModel, UserFavoriteModel }
