@@ -20,3 +20,8 @@ export interface Query {
     query:	string
     count: number;
 }
+
+export interface UserFavoritesData {
+    userTorreGgId: string;
+    favoriteUserTorreGgId:	string;
+}

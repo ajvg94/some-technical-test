@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { SearchQueryData, Query } from '../types/users';
-import { QueryModel } from '../../database/models'
+import { SearchQueryData, Query, UserFavoritesData } from '../types/users';
+import { QueryModel, UserFavoriteModel } from '../../database/models'
 import { HttpStatusCode } from '../types/error';
 
 const SEARCH_URL = "https://torre.ai/api/entities/_search";
@@ -60,29 +60,43 @@ export class UserService {
     }
   }
 
-  // static async getUserFavorites(getUserFavoritesData: searchQueryData) {
-  //   try{
-  //     return await QueryModel.findAll({ order: [['count', 'DESC']], limit: 10 });
-  //   }catch (error){
-  //     throw error;
-  //   }
-  // }
+  static async getUserFavorites(userTorreGgId: string) {
+    try{
+      let favorites=  await UserFavoriteModel.findAll({ 
+        attributes: ['favoriteUserTorreGgId'], 
+        where: { userTorreGgId: userTorreGgId } 
+      }) as Array<any>;
+      return favorites.map(e => e.favoriteUserTorreGgId);
+    }catch (error){
+      throw error;
+    }
+  }
 
-  // static async addToUserFavorites(searchQueryData: searchQueryData) {
-  //   try{
-  //     const { data, status } = await axios.post(SEARCH_URL, searchQueryData);
-  //     return { status, data };
-  //   }catch (error){
-  //     throw error;
-  //   }
-  // }
+  static async getUserFavoriteByGgId(getUserFavoriteByGgIdData: UserFavoritesData) {
+    try{
+      const foundFavorite = await UserFavoriteModel.findOne({ where: { ...getUserFavoriteByGgIdData } });
+      const favorite = foundFavorite?.dataValues as Query;
+      return favorite;
+    }catch (error){
+      throw error;
+    }
+  }
 
-  // static async removeFromUserFavorites(searchQueryData: searchQueryData) {
-  //   try{
-  //     const { data, status } = await axios.post(SEARCH_URL, searchQueryData);
-  //     return { status, data };
-  //   }catch (error){
-  //     throw error;
-  //   }
-  // }
+  static async addToUserFavorites(addToUserFavoritesData: UserFavoritesData) {
+    try{
+      const favorite = await UserService.getUserFavoriteByGgId(addToUserFavoritesData);
+      if(!favorite) 
+        await UserFavoriteModel.create({ ...addToUserFavoritesData });
+    }catch (error){
+      throw error;
+    }
+  }
+
+  static async removeFromUserFavorites(removeFromUserFavoritesData: UserFavoritesData) {
+    try{
+      await UserFavoriteModel.destroy({ where: { ...removeFromUserFavoritesData } });
+    }catch (error){
+      throw error;
+    }
+  }
 }

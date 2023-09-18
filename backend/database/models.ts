@@ -1,11 +1,11 @@
-import { Sequelize, Model, DataTypes } from "sequelize";
+import { Sequelize, Model, DataTypes } from 'sequelize';
 
 export const sequelize = new Sequelize({
   dialect: "sqlite",
   storage: './database.sqlite3'
 });
 
-class QueryModel extends Model {}
+class QueryModel extends Model {};
 QueryModel.init(
   {
     query: {
@@ -23,14 +23,14 @@ QueryModel.init(
   }
 );
 
-class UserFavoriteModel extends Model {}
+class UserFavoriteModel extends Model {};
 UserFavoriteModel.init(
   {
-    ggId: {
+    userTorreGgId: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    favoriteggId: {
+    favoriteUserTorreGgId: {
       type: DataTypes.STRING,
       allowNull: false
     }

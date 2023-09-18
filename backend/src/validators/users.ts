@@ -13,12 +13,12 @@ export const searchQuerySchema = object().shape({
 }).noUnknown(true);
 
 export const getUserFavoritesSchema = object().shape({
-    torreGgId: string(),
+    userTorreGgId: string().required(),
 }).noUnknown(true);
 
 export const addToUserFavoritesSchema = object().shape({
-    torreGgId: string(),
-    favoriteUserTorreGgId: string(),
+    userTorreGgId: string().required(),
+    favoriteUserTorreGgId: string().required(),
 }).noUnknown(true);
 
 export const removeFromUserFavoritesSchema = addToUserFavoritesSchema;
