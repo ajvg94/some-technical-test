@@ -1,0 +1,15 @@
+#searchButton{
+    background-color: #CDDC39;
+    color: black;
+    font-weight: bold;
+}
+
+nav{
+    border-bottom: 1px solid white;
+}
+
+nav img{
+    margin: 5px;
+    width: 30px;
+    height: 30px;
+}

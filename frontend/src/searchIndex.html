@@ -4,11 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../src/seachIndex.css">
     <link rel="icon" type="image/x-icon" href="../assets/torre-logo.ico">
     <title>Search</title>
 </head>
-<body>
-    
+<body class="bg-dark">
+    <!-- Navbar with Logo and User Icon -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="container">
+            <a class="navbar-brand text-white" href="#"><img src="../assets/torre-logo.jpeg">torre.ai</a>
+            <a class="navbar-brand ml-auto text-white" href="#"><img src="../assets/user-profile-image.jpg">Your Profile</a>
+        </div>
+    </nav>
+
+    <div class="container mt-4 bg-dark">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search...">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" id="searchButton">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results -->
+    <div class="container mt-4" id="results">
+        <!-- Results will be displayed here -->
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
