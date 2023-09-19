@@ -1,7 +1,14 @@
-#searchButton{
+#searchButton, #topQueriesButton{
     background-color: #CDDC39;
     color: black;
     font-weight: bold;
+}
+#searchButton:hover, #topQueriesButton:hover{
+    background-color: #C0CA33;
+}
+
+.navbar{
+    background-color: #27292D;
 }
 
 nav{

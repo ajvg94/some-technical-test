@@ -2,7 +2,7 @@ import { object, string, number, array, boolean } from 'yup';
 import { IdentityTypes } from '../types/users'
 
 export const searchQuerySchema = object().shape({
-    query: string(),
+    query: string().required(),
     torreGgId: string(),
     identityType: string().oneOf(Object.values(IdentityTypes)),
     limit: number(),

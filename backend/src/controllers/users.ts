@@ -15,7 +15,7 @@ import * as UserValidator from "../validators/users";
  */
 export const search = async (req: Request, res: Response) => {
     try {
-        const searchQueryData = req.body ;
+        const searchQueryData = req.body;
         await UserValidator.searchQuerySchema.validate(searchQueryData, validatorOptions);
         let resp = await UserService.searchUser(searchQueryData);
         res.status(HttpStatusCode.OK).send(resp);
@@ -70,7 +70,7 @@ export const getUserFavorites = async (req: Request, res: Response) => {
  *
  * @param {Request} req - The request object.
  * @param {Response} res - The response object.
- * @return {Promise<void>} A Promise that resolves when the favorite is added successfully.
+ * @return {Promise<void>} A Promise that resolves when the favorite is updated successfully.
  */
 export const addToUserFavorites = async (req: Request, res: Response) => {
     try {
