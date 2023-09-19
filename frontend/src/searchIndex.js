@@ -1,5 +1,6 @@
 const loggedUserGgId = "32dfc42c7926408d82475e98081894db";//My personal torreGgId
 $(document).ready(function () {
+
     $("#searchInput").keyup(function(e) {
         if (e.which == 13) {
             $("#searchButton").click();
@@ -24,6 +25,7 @@ $(document).ready(function () {
                 "Content-type": "application/json"
             }
         }).then((response) => response.json()).then(function (responseJSON) {
+            console.log(responseJSON);
             displaySearchResults(responseJSON.data);
         });
     });
@@ -32,35 +34,56 @@ $(document).ready(function () {
         fetch('http://localhost:3002/api/users/getTopQueries/', {
             method: 'GET'
         }).then((response) => response.json()).then(function (responseJSON) {
+            console.log(responseJSON);
             displayTopQueries(responseJSON.data);
         });
     });
 
-    $('.addToFavoritesBtn').click(function () {
-        let favoriteData = {
-            userTorreGgId: loggedUserGgId,
-            favoriteUserTorreGgId: favoriteGgId
+    $("#results").on("click", ".addToFavorites", function(e){
+        const ids = e.target.id.split("-"); 
+        const favoriteData = {
+            userTorreGgId: ids[0],
+            favoriteUserTorreGgId: ids[1]
         }
-        fetch('http://localhost:3002/api/users/search/', {
-            method: 'POST',
+        let requestMethod = '';
+        if(ids[2]=="true") requestMethod = 'DELETE';
+        else requestMethod = 'POST';
+        fetch('http://localhost:3002/api/users/favorites/', {
+            method: requestMethod,
             body: JSON.stringify(favoriteData),
             headers: {
                 "Content-type": "application/json"
             }
         }).then((response) => response.json()).then(function (responseJSON) {
-            alert('Added to Favorites');
+            console.log(responseJSON);
+            $("#searchButton").click();
         });
     });
 
+    /**
+     * Displays the search results on the webpage.
+     *
+     * @param {object} data - The search results data.
+     */
     function displaySearchResults(data) {
         $('#results').empty();
         data.results.forEach(function (person) {
+            let btnClass, btnText;
+
+            if(data.userFavorites.includes(person.ggId)){
+                btnText = "In Favorites";
+                btnClass = "btn-warning";
+            }else{
+                btnText = "Add from Favorites";
+                btnClass = "btn-outline-warning";
+            }
+             
             const resultHtml = `
                 <div class="card mb-3">
                     <div class="card-header">
                         <div class="float-right">
-                            <button class="btn btn-outline-warning btn-sm addToFavoritesBtn" data-toggle="tooltip" data-placement="top" title="Add to Favorites" id="${loggedUserGgId}-${person.ggId}">
-                                Add to Favorites
+                            <button class="btn ${btnClass} btn-sm addToFavorites" data-toggle="tooltip" data-placement="top" title="${btnText}" id="${loggedUserGgId}-${person.ggId}-${data.userFavorites.includes(person.ggId)}">
+                                ${btnText}
                             </button>
                         </div>
                     </div>
@@ -83,9 +106,14 @@ $(document).ready(function () {
         });
     }
 
+    /**
+     * Display the top queries in the results section.
+     *
+     * @param {Array} data - The array of query objects containing query and count.
+     * @return {undefined} This function does not return a value.
+     */
     function displayTopQueries(data) {
         $('#results').empty();
-        console.log(data);
         data.forEach(function (query) {
             const resultHtml = `
                 <div class="card mb-3">

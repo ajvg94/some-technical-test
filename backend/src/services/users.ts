@@ -22,6 +22,8 @@ export class UserService {
       if(query) await UserService.updateQuery(stringOfQuery);
       else await UserService.createQuery(stringOfQuery);
 
+      const userFavorites = await UserService.getUserFavorites(searchQueryData.torreGgId);
+      data.userFavorites = userFavorites;
       return { status, data };
     }catch (error){
       throw error;

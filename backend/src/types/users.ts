@@ -5,8 +5,8 @@ export enum IdentityTypes {
 }
 
 export interface SearchQueryData {
-    query?: string;
-    torreGgId?:	string
+    query: string;
+    torreGgId:	string
     identityType?: IdentityTypes;
     limit?: number;
     meta?: boolean;
