@@ -24,7 +24,15 @@ $(document).ready(function () {
                 "Content-type": "application/json"
             }
         }).then((response) => response.json()).then(function (responseJSON) {
-            displayResults(responseJSON.data);
+            displaySearchResults(responseJSON.data);
+        });
+    });
+
+    $('#topQueriesButton').click(function () {
+        fetch('http://localhost:3002/api/users/getTopQueries/', {
+            method: 'GET'
+        }).then((response) => response.json()).then(function (responseJSON) {
+            displayTopQueries(responseJSON.data);
         });
     });
 
@@ -44,7 +52,7 @@ $(document).ready(function () {
         });
     });
 
-    function displayResults(data) {
+    function displaySearchResults(data) {
         $('#results').empty();
         data.results.forEach(function (person) {
             const resultHtml = `
@@ -65,6 +73,30 @@ $(document).ready(function () {
                                 </div>
                                 <div class="row">
                                     <p class="card-text">${person.professionalHeadline}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            $('#results').append(resultHtml);
+        });
+    }
+
+    function displayTopQueries(data) {
+        $('#results').empty();
+        console.log(data);
+        data.forEach(function (query) {
+            const resultHtml = `
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 p-4">
+                                <div class="row">
+                                    <h5 class="card-title">Query: ${query.query}</h5>
+                                </div>
+                                <div class="row">
+                                    <p class="card-text">Count: ${query.count}</p>
                                 </div>
                             </div>
                         </div>
