@@ -1,5 +1,3 @@
-# Torre, Engineering - technical test v.1.1
-
 ## Table of contents
 
 #### [Assestment Instructions](#instructions)
